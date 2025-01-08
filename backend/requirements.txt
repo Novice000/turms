@@ -4,3 +4,4 @@ django-allauth
 dj_rest_auth[with_social]
 djangorestframework-simplejwt
 redis-channels
+dotenv
