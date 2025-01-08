@@ -1,0 +1,48 @@
+services:
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - turmsNetwork
+    # command: >
+    #         sh -c "python manage.py migrate &&
+    #         python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - postgres
+    env_file:
+      - ./.env
+  
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - turmsNetwork
+    depends_on:
+      - backend
+
+  postgres:
+    image: "postgres:15"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - turmsNetwork
+    environment:
+      - POSTGRES_USER=${USERNAME}
+      - POSTGRES_PASSWORD=${PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+
+volumes:
+  postgres_data:
+
+networks:
+  turmsNetwork:
+    driver: bridge
+    

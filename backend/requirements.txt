@@ -1,1 +1,6 @@
 django>=5.0.0
+djangorestframework
+django-allauth         
+dj_rest_auth[with_social]
+djangorestframework-simplejwt
+redis-channels
