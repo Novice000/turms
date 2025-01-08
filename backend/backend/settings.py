@@ -1,6 +1,5 @@
 import os
-
-from click import password_option
+from typing import Dict, List, Tuple
 """
 Django settings for backend project.
 
@@ -34,12 +33,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework_simplejwt",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
+    "allauth.socialaccount.providers.google",
 ]
 
 MIDDLEWARE = [
@@ -84,13 +93,13 @@ password: str = os.getenv("PASSWORD")
 db_name: str = os.getenv("DATABASE_NAME")
 
 
-DATABASES = {
+DATABASES: Dict[str, Dict[str,str]] = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": db_name,
         "USER": name,
         "PASSWORD": password,
-        "HOST": "postgrs",
+        "HOST": "postgres",
         "PORT": "5432"  
     }
 }
@@ -113,6 +122,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#rest framework and simplejwt setup
+REST_FRAMEWORK: Dict[str, (Tuple[str], List[str])]= {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+REST_AUTH: Dict[str,(bool, str)] = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'my-app-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

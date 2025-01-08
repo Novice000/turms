@@ -7,3 +7,5 @@ class UserAccount(AbstractUser):
     email = models.EmailField(max_length=255)
     first_name = models.CharField(max_length=255)
     
+    def get_fullname(self):
+        return f"{self.first_name} {self.last_name}"

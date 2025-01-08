@@ -1,7 +1,8 @@
 django>=5.0.0
-djangorestframework
-django-allauth         
-dj_rest_auth[with_social]
+channels[daphne]
+djangorestframework      
+dj-rest-auth[with_social]
 djangorestframework-simplejwt
-redis-channels
-dotenv
+# redis-channels
+python-dotenv
+django-allauth[socialaccount]

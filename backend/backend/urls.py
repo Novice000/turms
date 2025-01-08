@@ -15,10 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from typing import List
 from django.contrib import admin
 from django.urls import path, include
+from .socialauth import FacebookLogin, TwitterLogin, GoogleLogin
 
-urlpatterns = [
+urlpatterns: List[path] = [
     path("admin/", admin.site.urls),
-    path("turms/", include("turms.urls"))
+    path("turms/", include("turms.urls")),
+    path("turms/", include('dj_rest_auth.urls')),
+    path("turms/registration/", include("dj_rest_auth.registration.urls")),
+    path('turms/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    path('turms/facebook/', TwitterLogin.as_view(), name='fb_login')
 ]
