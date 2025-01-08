@@ -1,3 +1,4 @@
+from datetime import timedelta
 import os
 from typing import Dict, List, Tuple
 """
@@ -122,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#rest framework and simplejwt setup
+#rest framework
 REST_FRAMEWORK: Dict[str, (Tuple[str], List[str])]= {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -131,6 +132,14 @@ REST_FRAMEWORK: Dict[str, (Tuple[str], List[str])]= {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+#simplejwt
+SIMPLE_JWT: Dict[str, (str, timedelta)] = {
+  "TOKEN_OBTAIN_SERIALIZER": "my_app.serializers.MyTokenObtainPairSerializer",
+  "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+  "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
 
 REST_AUTH: Dict[str,(bool, str)] = {
     'USE_JWT': True,
