@@ -1,6 +1,8 @@
+from curses.ascii import EM
 from datetime import timedelta
 import os
-from typing import Dict, List, Tuple
+from tkinter import E
+from typing import Any, Callable, Dict, List, Tuple, Union
 """
 Django settings for backend project.
 
@@ -34,7 +36,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "daphne",
+    # "daphne",
+    "core",
+    "turms",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,14 +49,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "django.contrib.sites",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "dj_rest_auth.registration",
-    "allauth.socialaccount.providers.google",
+    "djoser"
 ]
 
 MIDDLEWARE = [
+    "allauth.account.middleware.AccountMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -124,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 #rest framework
-REST_FRAMEWORK: Dict[str, (Tuple[str], List[str])]= {
+REST_FRAMEWORK: Dict[str, Union[Tuple[str], List[str]]] = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
@@ -133,18 +134,18 @@ REST_FRAMEWORK: Dict[str, (Tuple[str], List[str])]= {
     ]
 }
 
-#simplejwt
-SIMPLE_JWT: Dict[str, (str, timedelta)] = {
-  "TOKEN_OBTAIN_SERIALIZER": "my_app.serializers.MyTokenObtainPairSerializer",
-  "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-  "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+SIMPLE_JWT: Dict[str, Union[str, timedelta, Callable[[Any], Any]]] = {
+    "TOKEN_OBTAIN_SERIALIZER": "my_app.serializers.MyTokenObtainPairSerializer",
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
-
-REST_AUTH: Dict[str,(bool, str)] = {
-    'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'my-app-auth',
-    'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token',
+DJOSER = {
+    "TOKEN_MODEL": None,
+    "SERIALIZERS": {
+        "user_create": "core.serializers.CustomUserCreateSerializer",
+        "user": "core.serializers.UserSerializer",
+    },
 }
 
 # Internationalization
@@ -167,4 +168,13 @@ STATIC_URL = "static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.UUIDField"
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "core.User"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv("EMAIL")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")

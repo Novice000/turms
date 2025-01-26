@@ -18,13 +18,10 @@ Including another URLconf
 from typing import List
 from django.contrib import admin
 from django.urls import path, include
-from .socialauth import FacebookLogin, TwitterLogin, GoogleLogin
 
 urlpatterns: List[path] = [
     path("admin/", admin.site.urls),
     path("turms/", include("turms.urls")),
-    path("turms/", include('dj_rest_auth.urls')),
-    path("turms/registration/", include("dj_rest_auth.registration.urls")),
-    path('turms/facebook/', FacebookLogin.as_view(), name='fb_login'),
-    path('turms/facebook/', TwitterLogin.as_view(), name='fb_login')
+    path("auth/", include("djoser.urls")),
+    path("auth/", include("djoser.urls.jwt")),
 ]
