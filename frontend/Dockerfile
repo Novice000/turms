@@ -8,8 +8,6 @@ RUN npm install
 
 COPY . /client/
 
-RUN npm run build
-
 EXPOSE 3000
 
 # Start the application

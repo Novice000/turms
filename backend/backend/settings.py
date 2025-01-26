@@ -144,12 +144,16 @@ SIMPLE_JWT: Dict[str, Union[str, timedelta, Callable[[Any], Any]]] = {
 DJOSER = {
     "LOGIN_FIELD": "email",
     "TOKEN_MODEL": None,
-    "PASSWORD_CHANGE_EMAIL_CONFIRMATION": True,
-    "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
     "SEND_ACTIVATION_EMAIL": True,
+    "EMAIL_FRONTEND_DOMAIN": "http://localhost:8000", #should be changed to 3000 later
+    "EMAIL_FRONTEND_PROTOCOL": "http", #  should be changed to https for production
+    "EMAIL_FRONTEND_SITENAME": "Turms",
     "SEND_CONFIRMATION_EMAIL": True,
     "USER_CREATE_PASSWORD_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
+    "ACTIVATION_URL": "activate/{uid}/{token}",
+    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
     "SERIALIZERS": {
         "user_create": "core.serializers.CustomUserCreateSerializer",
         "user": "core.serializers.UserSerializer",
