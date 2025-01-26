@@ -1,7 +1,5 @@
-from curses.ascii import EM
 from datetime import timedelta
 import os
-from tkinter import E
 from typing import Any, Callable, Dict, List, Tuple, Union
 """
 Django settings for backend project.
@@ -37,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # "daphne",
+    "corsheaders",
     "core",
     "turms",
     "django.contrib.admin",
@@ -52,11 +51,13 @@ INSTALLED_APPS = [
     "djoser"
 ]
 
+SITE_ID = 1
+
 MIDDLEWARE = [
-    "allauth.account.middleware.AccountMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -135,16 +136,24 @@ REST_FRAMEWORK: Dict[str, Union[Tuple[str], List[str]]] = {
 }
 
 SIMPLE_JWT: Dict[str, Union[str, timedelta, Callable[[Any], Any]]] = {
-    "TOKEN_OBTAIN_SERIALIZER": "my_app.serializers.MyTokenObtainPairSerializer",
+    "TOKEN_OBTAIN_SERIALIZER": "core.serializers.CustomTokenObtainPairSerializer",
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
 DJOSER = {
+    "LOGIN_FIELD": "email",
     "TOKEN_MODEL": None,
+    "PASSWORD_CHANGE_EMAIL_CONFIRMATION": True,
+    "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
+    "SEND_ACTIVATION_EMAIL": True,
+    "SEND_CONFIRMATION_EMAIL": True,
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "SET_PASSWORD_RETYPE": True,
     "SERIALIZERS": {
         "user_create": "core.serializers.CustomUserCreateSerializer",
         "user": "core.serializers.UserSerializer",
+        "user_detail": "core.serializers.UserSerializer",
     },
 }
 
@@ -171,6 +180,12 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "core.User"
+
+# corsheaders
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
