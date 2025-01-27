@@ -4,7 +4,7 @@
     <title>Activate Your Account</title>
 </head>
 <body>
-    <p>Hello {{ user.username }},</p>
+    <p>Hello {{ user.get_fullname() }},</p>
     <p>Thank you for registering on {{ site_name }}.</p>
     <p>Please click the link below to activate your account:</p>
     <p><a href="{{ protocol }}://{{ domain }}{{ url }}">Activate Account</a></p>

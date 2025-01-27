@@ -145,20 +145,27 @@ DJOSER = {
     "LOGIN_FIELD": "email",
     "TOKEN_MODEL": None,
     "SEND_ACTIVATION_EMAIL": True,
+    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True, #change if you want more work
+    "USERNAME_CHANGED_EMAIL_CONFIRMATION": True, #change if you want more work
     "EMAIL_FRONTEND_DOMAIN": "http://localhost:8000", #should be changed to 3000 later
     "EMAIL_FRONTEND_PROTOCOL": "http", #  should be changed to https for production
-    "EMAIL_FRONTEND_SITENAME": "Turms",
+    "EMAIL_FRONTEND_SITE_NAME": "Turms",
     "SEND_CONFIRMATION_EMAIL": True,
     "USER_CREATE_PASSWORD_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
     "ACTIVATION_URL": "activate/{uid}/{token}",
-    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
-    "USERNAME_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_RETYPE": True,
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "PASSWORD_RESET_CONFIRM_URL": "reset/confirm/password/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_URL": "reset/confirm/email/{uid}/{token}",
     "SERIALIZERS": {
         "user_create": "core.serializers.CustomUserCreateSerializer",
         "user": "core.serializers.UserSerializer",
         "user_detail": "core.serializers.UserSerializer",
     },
+    "EMAIL": {
+        "activation": "core.email.ActivationEmail",
+    }
 }
 
 # Internationalization
