@@ -1,6 +1,7 @@
 from random import choice, choices
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.forms import CharField, EmailField
 
 # Create your models here.
 
@@ -27,7 +28,7 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-    choices = [("driver", "DRIVER"),("requester", "REQUESTER")]
+    choices: list[tuple[str, str]] = [("requester", "requester"), ("responder", "responder")]
     
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=255)
