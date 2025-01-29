@@ -147,7 +147,7 @@ DJOSER = {
     "SEND_ACTIVATION_EMAIL": True,
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True, #change if you want more work
     "USERNAME_CHANGED_EMAIL_CONFIRMATION": True, #change if you want more work
-    "EMAIL_FRONTEND_DOMAIN": "http://localhost:8000", #should be changed to 3000 later
+    "EMAIL_FRONTEND_DOMAIN": "http://localhost:3000", #should be changed to 3000 later
     "EMAIL_FRONTEND_PROTOCOL": "http", #  should be changed to https for production
     "EMAIL_FRONTEND_SITE_NAME": "Turms",
     "SEND_CONFIRMATION_EMAIL": True,
@@ -163,9 +163,9 @@ DJOSER = {
         "user": "core.serializers.UserSerializer",
         "user_detail": "core.serializers.UserSerializer",
     },
-    "EMAIL": {
-        "activation": "core.email.CustomActivationEmail",
-    }
+    # "EMAIL": {
+    #     "activation": "core.email.CustomActivationEmail",
+    # }
 }
 
 # Internationalization
