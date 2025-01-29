@@ -1,18 +1,18 @@
+"use client";
 import FormHeading from "@/components/confirm/heading";
 import { EmailForm } from "@/components/confirm/email_form";
+import { useParams } from "next/navigation";
 
-export default function EmailReset({
-  uid,
-  token,
-}: {
-  uid: string;
-  token: string;
-}) {
+export default function EmailReset() {
+  const { uid, token } = useParams() as { uid: string; token: string };
   return (
-    <div>
-      <FormHeading heading="Set Email" />
-      <EmailForm uid={uid} token={token} />
+    <div className="w-full h-4/5 grid place-content-center">
+      <div className="form-float">
+        <FormHeading heading="Set Email" />
+        <div className="form-container">
+          <EmailForm uid={uid} token={token} />
+        </div>
+      </div>
     </div>
   );
 }
-

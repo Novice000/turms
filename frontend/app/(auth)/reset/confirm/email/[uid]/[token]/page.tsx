@@ -1,9 +1,7 @@
 import EmailReset  from "./client";
 
-export default function Page({ params }: { params: { uid: string; token: string } }) {
+export default function Page() {
     return (
-      <div>
-        <EmailReset uid={params.uid} token={params.token} />
-      </div>
+        <EmailReset />
     );
 }

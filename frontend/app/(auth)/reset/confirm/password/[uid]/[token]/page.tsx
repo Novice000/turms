@@ -1,13 +1,9 @@
 import PasswordReset from "./client";
 
-export default function Page({
-  params,
-}: {
-  params: { uid: string; token: string };
-}) {
+export default function Page() {
   return (
-    <div>
-      <PasswordReset uid={params.uid} token={params.token} />
-    </div>
+    <>
+      <PasswordReset/>
+    </>
   );
 }

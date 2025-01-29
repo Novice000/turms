@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 
 export function PasswordForm({ uid, token }: { uid: string; token: string }) {
@@ -58,7 +58,7 @@ export function PasswordForm({ uid, token }: { uid: string; token: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         <FormField
           control={form.control}
           name="password"
@@ -66,7 +66,12 @@ export function PasswordForm({ uid, token }: { uid: string; token: string }) {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Password" type="password" {...field} />
+                <Input
+                  placeholder="Password"
+                  type="password"
+                  {...field}
+                  className="w-full md:w-[400px]"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -83,6 +88,7 @@ export function PasswordForm({ uid, token }: { uid: string; token: string }) {
                   placeholder="Confirm Password"
                   type="password"
                   {...field}
+                  className="w-full md:w-[400px]"
                 />
               </FormControl>
               <FormMessage />

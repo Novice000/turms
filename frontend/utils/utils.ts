@@ -1,11 +1,11 @@
 import {login, refresh} from "@/axios/axios_instances";
-import jwtDecode from "jwt-decode";
+import { jwtDecode} from "jwt-decode";
 
 export function accessIsExpired(): boolean{
     const token = localStorage.getItem("access_token");
     if (token){
         const decodedToken = jwtDecode(token);
-        const expirationTime = decodedToken.exp * 1000;
+        const expirationTime = decodedToken?.exp ? decodedToken.exp * 1000 : 0;
         const currentTime = new Date().getTime();
         if (expirationTime < currentTime){
             return true
@@ -18,7 +18,7 @@ export function refreshIsExpired(): boolean{
     const token = localStorage.getItem("refresh_token");
     if (token){
         const decodedToken = jwtDecode(token);
-        const expirationTime = decodedToken.exp * 1000;
+        const expirationTime = decodedToken?.exp ? decodedToken.exp * 1000 : 0;
         const currentTime = new Date().getTime();
         if (expirationTime < currentTime){
             return true
