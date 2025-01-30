@@ -1,14 +1,12 @@
 import React from "react";
-import { ClipLoader } from "react-spinners";
+import {  PuffLoader } from "react-spinners";
 
 function Loading() {
-    return (
-        <div className="flex justify-center items-center h-screen">
-            <ClipLoader
-                size={100}
-            />
-        </div>
-    )
-}    
+  return (
+    <div className="w-full h-screen flex justify-center items-center backdrop-blur-lg">
+      <PuffLoader size={20} speedMultiplier={1} color="black" />
+    </div>
+  );
+}
 
-export default Loading
+export default Loading;

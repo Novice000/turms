@@ -96,7 +96,7 @@ export function PasswordForm({ uid, token }: { uid: string; token: string }) {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="w-full">Submit</Button>
       </form>
     </Form>
   );

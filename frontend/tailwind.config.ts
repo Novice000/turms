@@ -57,7 +57,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       backgroundImage: {
-        "image-bg": "url('@/assests/hands.jpg')",
+        "image-bg": "url('@/assests/world-map-light.png')",
       },
     },
   },
