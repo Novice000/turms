@@ -1,10 +1,9 @@
-"use client"
+"use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -13,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function ResendDialog() {
+export function ResetDialog() {
   const [email, setEmail] = React.useState<string>("");
 
   function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -29,12 +28,11 @@ export function ResendDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Resend Activation Email</Button>
+        <Button variant="outline">Forgot Password</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Email Activation</DialogTitle>
-          <DialogDescription>Resend Email Activation</DialogDescription>
+          <DialogTitle>Reset Password</DialogTitle>
         </DialogHeader>
         <form action="" onSubmit={handleSubmit}>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -45,16 +43,17 @@ export function ResendDialog() {
               id="email"
               value={email}
               className="col-span-3"
+              placeholder="johndoe@gmail.com"
               onChange={handleEmailChange}
             />
           </div>
         </form>
         <DialogFooter>
-          <Button type="submit">Resend</Button>
+          <Button type="submit">Reset</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
-export default ResendDialog;
+export default ResetDialog;

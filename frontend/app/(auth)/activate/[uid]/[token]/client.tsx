@@ -51,7 +51,7 @@ export default function ActivatePage() {
 
     if (error) {
         return (
-            <div className="w-full h-screen flex justify-center items-center">
+            <div className="w-full h-full flex justify-center items-center">
                 <div className="flex flex-col justify-center items-center space-y-5 border border-red-600 bg-red-200 rounded-md p-5 h-[200px] w-[400px]">
                     <h1 className="font-bold text-3xl text-red-600"> Activation Failed </h1>
                   <ResendDialog />

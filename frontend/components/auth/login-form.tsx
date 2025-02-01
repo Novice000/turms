@@ -8,6 +8,7 @@ import { Input } from "../ui/input";
 import Link from "next/link";
 // import { login } from "@/axios/axios_instances";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import ResetDialog from "./reset_password_dialog";
 
 function LoginForm(){
 
@@ -78,6 +79,7 @@ function LoginForm(){
         <div>
         I don&apos;t have an account.{" "}<Link href="/register" className="underline text-blue-600">Register</Link>
         </div>
+        <ResetDialog />
       </form>
     </Form>
     )

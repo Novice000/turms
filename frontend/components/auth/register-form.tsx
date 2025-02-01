@@ -103,7 +103,7 @@ function RegisterForm(){
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="johndoe" {...field} type="email" className="w-full md:w-[400px]"/>
+                  <Input placeholder="johndoe@gmail.com" {...field} type="email" className="w-full md:w-[400px]"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -117,7 +117,7 @@ function RegisterForm(){
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="johndoe" type="password" {...field} className="w-full md:w-[400px]"/>
+                  <Input placeholder="******" type="password" {...field} className="w-full md:w-[400px]"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -131,7 +131,7 @@ function RegisterForm(){
               <FormItem>
                 <FormLabel>Repeat Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="johndoe" type="password" {...field} className="w-full md:w-[400px]"/>
+                  <Input placeholder="******" type="password" {...field} className="w-full md:w-[400px]"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>

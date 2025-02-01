@@ -57,7 +57,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       backgroundImage: {
-        "image-bg": "url('@/assests/world-map-light.png')",
+        "image-bg": "url('@/assests/white-map.jpg')",
+        "login-image": "url('@/assests/pb-earth.jpg')",
       },
     },
   },
