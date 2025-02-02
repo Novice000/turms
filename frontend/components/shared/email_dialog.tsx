@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -16,7 +17,16 @@ import { useForm } from "react-hook-form";
 import { Form, FormField, FormItem, FormLabel } from "../ui/form";
 import { z } from "zod";
 
-export function ResetDialog() {
+
+
+type customDialogProp = {
+  name: string;
+  description?: string;
+  submit?: string;
+  title?: string;
+};
+
+export function CustomDialog({ customProp } : { customProp: customDialogProp} ) {
   const [email, setEmail] = React.useState<string>("");
 
   const emailform = useForm<z.infer<typeof emailSchema>>({
@@ -39,11 +49,12 @@ export function ResetDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Forgot Password</Button>
+        <Button variant="outline">{customProp.name}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] w-full">
         <DialogHeader>
-          <DialogTitle>Reset Password</DialogTitle>
+          <DialogTitle>{customProp.title}</DialogTitle>
+          <DialogDescription>{customProp.description}</DialogDescription>
         </DialogHeader>
         <Form {...emailform}>
           <form action="" onSubmit={emailform.handleSubmit(handleSubmit)}>
@@ -51,8 +62,8 @@ export function ResetDialog() {
               control={emailform.control}
               name="email"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 items-center gap-4">
-                  <FormLabel htmlFor="email" className="text-right">
+                <FormItem className="flex items-center justify-center gap-4">
+                  <FormLabel htmlFor="email" className="">
                     Email
                   </FormLabel>
                   <Input
@@ -75,4 +86,4 @@ export function ResetDialog() {
   );
 }
 
-export default ResetDialog;
+export default CustomDialog;

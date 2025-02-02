@@ -1,9 +1,10 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { emailChangeSchema } from "@/schemas/auth";
 import { Button } from "@/components/ui/button";
+import { z } from "zod";
 import { unAuthCall } from "@/axios/axios_instances";
 import {
   Form,
@@ -18,20 +19,9 @@ import { Input } from "@/components/ui/input";
 
 export function EmailForm({ uid, token }: { uid: string; token: string }) {
   const router = useRouter();
-  const emailChangeFormSchema: z.ZodType = z
-    .object({
-      uid: z.string(),
-      token: z.string(),
-      email: z.string().email({ message: "Invalid email address" }),
-      reEmail: z.string().email({ message: "Invalid email address" }),
-    })
-    .refine((data) => data.email === data.reEmail, {
-      message: "Email addresses must match",
-      path: ["reEmail"],
-    });
 
-  const form = useForm<z.infer<typeof emailChangeFormSchema>>({
-    resolver: zodResolver(emailChangeFormSchema),
+  const form = useForm<z.infer<typeof emailChangeSchema>>({
+    resolver: zodResolver(emailChangeSchema),
     defaultValues: {
       uid: uid,
       token: token,
@@ -40,7 +30,7 @@ export function EmailForm({ uid, token }: { uid: string; token: string }) {
     },
   });
 
-  async function onSubmit(data: z.infer<typeof emailChangeFormSchema>) {
+  async function onSubmit(data: z.infer<typeof emailChangeSchema>) {
     const response = await unAuthCall.post("/users/reset_email_confirm/", data);
     if (response.status === 200) {
       router.push("/login");

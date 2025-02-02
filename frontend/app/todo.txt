@@ -1,0 +1,4 @@
+link to reset email and password
+add custon alert dialog to things like delete and log out
+move schemas to a schema folder and add regex for password
+add validation to dialogs

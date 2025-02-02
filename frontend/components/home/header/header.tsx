@@ -3,10 +3,10 @@ import { MenuIcon } from "lucide-react";
 
 function Header() {
   return (
-    <div className="text-[30px]  flex justify-between px-4 font-bold items-center border-b border-white-400 bg-black text-white backdrop-blur-md">
+    <div className="text-[30px] w-full flex justify-between px-4 font-bold items-center border-b border-white-400 bg-black text-white backdrop-blur-md">
       <TurmsLogo />
-      <div className="flex items-center space-x-2">
-        <MenuIcon color="white" />
+      <div className="">
+      <MenuIcon color="white" />
       </div>
     </div>
   );

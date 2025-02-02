@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { passwordChangeSchema } from "@/schemas/auth";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { unAuthCall } from "@/axios/axios_instances";
@@ -18,24 +19,10 @@ import { Input } from "@/components/ui/input";
 
 export function PasswordForm({ uid, token }: { uid: string; token: string }) {
   const router = useRouter();
-  const emailChangeFormSchema: z.ZodType = z
-    .object({
-      uid: z.string(),
-      token: z.string(),
-      password: z
-        .string()
-        .min(12, { message: "Password must be at least 12 characters" }),
-      rePassword: z
-        .string()
-        .min(12, { message: "Password must be at least 12 characters" }),
-    })
-    .refine((data) => data.password === data.rePassword, {
-      message: "Email addresses must match",
-      path: ["rePassword"],
-    });
 
-  const form = useForm<z.infer<typeof emailChangeFormSchema>>({
-    resolver: zodResolver(emailChangeFormSchema),
+
+  const form = useForm<z.infer<typeof passwordChangeSchema>>({
+    resolver: zodResolver(passwordChangeSchema),
     defaultValues: {
       uid: uid,
       token: token,
@@ -44,7 +31,7 @@ export function PasswordForm({ uid, token }: { uid: string; token: string }) {
     },
   });
 
-  async function onSubmit(data: z.infer<typeof emailChangeFormSchema>) {
+  async function onSubmit(data: z.infer<typeof passwordChangeSchema>) {
     const response = await unAuthCall.post(
       "/users/reset_password_confirm/",
       data

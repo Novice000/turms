@@ -2,32 +2,26 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { loginSchema } from "@/schemas/auth";
+import { z } from "zod";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Link from "next/link";
 // import { login } from "@/axios/axios_instances";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import ResetDialog from "./reset_password_dialog";
+import CustomDialog from "../shared/email_dialog";
 
 function LoginForm(){
 
-    const formSchema = z.object({
-        email: z.string().email({ message: "Invalid email address" }),
-        password: z
-          .string()
-          .min(12, { message: "Password must be at least 12 characters" }),
-      });
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof loginSchema>>({
+        resolver: zodResolver(loginSchema),
         defaultValues: {
             email: "",
             password: "",
         }
     });
 
-    async function onSubmit(data: z.infer<typeof formSchema>) {
+    async function onSubmit(data: z.infer<typeof loginSchema>) {
         // try {
         //     const response = await login.post("/auth/jwt/create/", data);
         //     if (response.status !== 201 || !response.data) {
@@ -79,7 +73,7 @@ function LoginForm(){
         <div>
         I don&apos;t have an account.{" "}<Link href="/register" className="underline text-blue-600">Register</Link>
         </div>
-        <ResetDialog />
+        <CustomDialog customProp={{name: "Forgot Password", title: "Reset Password", description: "Enter your email address to reset your password"}} />
       </form>
     </Form>
     )

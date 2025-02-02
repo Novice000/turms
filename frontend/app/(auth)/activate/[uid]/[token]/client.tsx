@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { unAuthCall } from "@/axios/axios_instances";
 import { Button } from "@/components/ui/button";
 import { PuffLoader } from "react-spinners";
-import ResendDialog from "@/components/activate/resend-dialog";
+import { CustomDialog } from "@/components/shared/email_dialog";
 
 export default function ActivatePage() {
     const router = useRouter()
@@ -54,7 +54,7 @@ export default function ActivatePage() {
             <div className="w-full h-full flex justify-center items-center">
                 <div className="flex flex-col justify-center items-center space-y-5 border border-red-600 bg-red-200 rounded-md p-5 h-[200px] w-[400px]">
                     <h1 className="font-bold text-3xl text-red-600"> Activation Failed </h1>
-                  <ResendDialog />
+                  <CustomDialog customProp={{name:"Resend Activation Link", title:"Resend Activation Link", description:"Resend Activation Link"}}/>
                 </div>
             </div>
         )

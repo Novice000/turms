@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { registerSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "../ui/button";
@@ -11,21 +12,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 // import { unAuthCall } from "@/axios/axios_instances";
 
 function RegisterForm(){
-    const formSchema = z.object({
-        first_name: z.string(),
-        last_name: z.string(),
-        username: z.string(),
-        email: z.string().email({ message: "Invalid email address" }),
-        password: z.string().min(12, { message: "Password must be at least 12 characters" }),
-        re_password: z.string().min(12, { message: "Password must be at least 12 characters" }),
-        role: z.enum(["responder", "requester"]),
-    }).refine((data) => data.password === data.re_password, {
-        message: "Email addresses must match",
-        path: ["rePassword"],
-    });
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof registerSchema>>({
+        resolver: zodResolver(registerSchema),
         defaultValues: {
             role: "responder",
             first_name: "",
@@ -37,7 +26,7 @@ function RegisterForm(){
         }
     })
 
-    async function onSubmit(data: z.infer<typeof formSchema>) {
+    async function onSubmit(data: z.infer<typeof registerSchema>) {
         // try {
         //     const repsonse = await unAuthCall.post("/users/", data);
         //     if (repsonse.status === 201) {
