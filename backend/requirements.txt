@@ -4,6 +4,6 @@ djangorestframework
 djoser   
 djangorestframework-simplejwt
 django-cors-headers
-# redis-channels
+chanels-redis
 python-dotenv
 psycopg2

@@ -4,49 +4,62 @@ services:
       context: ./backend/
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "8000:8000" # Expose port 8000 for the Django development server
     networks:
       - turmsNetwork
     command: >
       sh -c "
-      python manage.py makemigrations core &&
-      python manage.py migrate core &&
-      python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8000"
-
+      python manage.py makemigrations core && # Create migrations for the core app
+      python manage.py migrate core && # Apply migrations for the core app
+      python manage.py migrate && # Apply all migrations
+      python manage.py runserver 0.0.0.0:8000" # Start the Django development server
     depends_on:
-      - postgres
+      - postgres # Wait for the PostgreSQL service to be up before starting the backend
+      - redis # Wait for the Redis service to be up before starting the backend
     env_file:
-      - ./.env
-  
+      - ./.env # Load environment variables from .env
+
   frontend:
     build:
       context: ./frontend/
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:3000" # Expose port 3000 for the React development server
     networks:
       - turmsNetwork
     depends_on:
-      - backend
+      - backend # Wait for the backend service to be up before starting the frontend
 
   postgres:
     image: "postgres:15"
     ports:
-      - "5432:5432"
+      - "5432:5432" # Expose port 5432 for PostgreSQL
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data # Persist data to a named volume
     networks:
       - turmsNetwork
     environment:
-      - POSTGRES_USER=${USERNAME}
-      - POSTGRES_PASSWORD=${PASSWORD}
-      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${USERNAME} # Set the PostgreSQL username
+      - POSTGRES_PASSWORD=${PASSWORD} # Set the PostgreSQL password
+      - POSTGRES_DB=${DATABASE_NAME} # Set the PostgreSQL database name
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379" # Expose port 6379 for Redis
+    networks:
+      - turmsNetwork
+    environment:
+      - REDIS_USER=${USERNAME} # Set the Redis username
+      - REDIS_PASSWORD=${PASSWORD} # Set the Redis password
+    volumes:
+      - redis_data:/var/lib/redis # Persist data to a named volume
 
 volumes:
-  postgres_data:
+  postgres_data: # Named volume for persisting PostgreSQL data
+  redis_data: # Named volume for persisting Redis data
 
 networks:
   turmsNetwork:
-    driver: bridge
-    
+    driver: bridge # Use the bridge network driver for the Docker network
+
